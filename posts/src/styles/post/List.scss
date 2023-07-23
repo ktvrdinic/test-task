@@ -1,0 +1,59 @@
+// PostList.scss
+
+.post-list {
+ list-style: none;
+ padding: 50px;
+
+ &__search-input {
+  margin-bottom: 20px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+ }
+
+ &__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+ }
+
+ &__item {
+  margin-bottom: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s;
+
+  &:hover {
+   background-color: #f0f0f0;
+  }
+
+  .post-list__title {
+   font-weight: bold;
+   margin-bottom: 5px;
+  }
+
+  .post-list__body {
+   color: #666;
+  }
+
+  .post-list__user {
+   color: #777;
+   margin-top: 5px;
+  }
+ }
+
+ &__link {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+ }
+
+ &__username {
+  color: #28a745;
+  font-size: 14px;
+ }
+}
