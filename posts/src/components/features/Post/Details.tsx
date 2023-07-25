@@ -5,14 +5,14 @@ import {
  getPostComments,
  getPostDetails,
 } from '../../../services/post/Details';
+import '../../../styles/post/Details.scss';
 import LoggerHOC from '../../../utils/LoggerHOC';
 import { FIFE_MINUTES_IN_MILLISECONDS } from '../../../utils/constants';
-import '../../../styles/post/Details.scss';
 
 const PostDetail = () => {
  const { id } = useParams();
 
- if (!id) return <div>We don't have Id</div>;
+ if (!id) return <div>Id is missing</div>;
 
  const {
   data: details,

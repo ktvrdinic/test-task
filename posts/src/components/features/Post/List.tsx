@@ -4,10 +4,10 @@ import { useQueries, useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { getPostList } from '../../../services/post/List';
 import { getUser, getUserById } from '../../../services/user/User';
+import '../../../styles/post/List.scss';
 import LoggerHOC from '../../../utils/LoggerHOC';
 import { FIFE_MINUTES_IN_MILLISECONDS } from '../../../utils/constants';
 import debounce from '../../../utils/debounce';
-import '../../../styles/post/List.scss';
 
 const PostList = () => {
  const [searchTerm, setSearchTerm] = useState('');
@@ -21,6 +21,8 @@ const PostList = () => {
   staleTime: FIFE_MINUTES_IN_MILLISECONDS,
  });
 
+ if (isError) return <div>Something went wrong</div>;
+
  const postQueries = useQueries(
   posts?.map((post) => ({
    queryKey: ['user', post.userId],
@@ -31,7 +33,6 @@ const PostList = () => {
 
  const debouncedSearch = debounce(async (value) => {
   setSearchTerm(value);
-
   const user = value ? await getUser('username', value) : [];
 
   if (user.length) setUserId(String(user[0].id));
@@ -59,11 +60,15 @@ const PostList = () => {
      {!isLoading ? (
       posts?.map((post, index) => {
        const userQuery = postQueries[index];
-       const { data: user, isLoading, isError } = userQuery;
+       const { data: user, isLoading } = userQuery;
 
        return (
-        <Link to={`/post/${post.id.toString()}`} className='post-list__link'>
-         <li key={index} className='post-list__item'>
+        <Link
+         to={`/post/${post.id.toString()}`}
+         className='post-list__link'
+         key={index}
+        >
+         <li className='post-list__item'>
           <div className='post-list__title'>{post.title}</div>
           <div className='post-list__body'>{post.body}</div>
 
@@ -80,7 +85,7 @@ const PostList = () => {
        );
       })
      ) : (
-      <>Is loading..</>
+      <>Loading posts...</>
      )}
     </ul>
    </div>
